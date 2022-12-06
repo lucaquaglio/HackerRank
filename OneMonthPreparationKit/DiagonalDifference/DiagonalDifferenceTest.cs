@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace HackerRank.OneMonthPreparationKit.Test
+namespace HackerRank.OneMonthPreparationKit.Testing
 {
 	sealed class DiagonalDifferenceTest
 	{
