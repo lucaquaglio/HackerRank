@@ -4,51 +4,26 @@
 	{
 		public static int Birthday(List<int> s, int d, int m)
 		{
-			var waysBarCanBeDivided = new List<string>();
-			for (int i = 0; i < s.Count; i++)
+			var squares = s;
+			var n = squares.Count;
+
+			int ct = 0;
+			int sum = 0;
+
+			for (int i = 0; i < m - 1; i++)
 			{
-				var segments = new List<int>();
-				var square = s[i];
-
-				if (square > d)
-				{
-					continue;
-				}
-
-				segments.Add(square);
-
-				for (int j = i + 1; j < s.Count && segments.Count < m; j++)
-				{
-					var nextSquare = s[j];
-					var squareSum = segments.Sum() + nextSquare;
-					if (squareSum > d)
-					{
-						continue;
-					}
-
-					if (segments.Count < (m - 1) || squareSum == d)
-					{
-						segments.Add(nextSquare);
-					}
-				}
-
-				if (segments.Sum() == d && segments.Count == m)
-				{
-					var differenceToMonth = m - segments.Count;
-					for (int j = 0; j < differenceToMonth; j++)
-					{
-						segments.Add(0);
-					}
-
-					var way = string.Join(":", segments.OrderBy(x => x).ToArray());
-					if (!waysBarCanBeDivided.Contains(way))
-					{
-						waysBarCanBeDivided.Add(way);
-					}
-				}
+				sum += squares[i];
 			}
 
-			return waysBarCanBeDivided.Distinct().Count();
+			for (int j = m - 1; j < n; j++)
+			{
+				sum -= (j - m) < 0 ? 0 : squares[j - m];
+				sum += squares[j];
+				if (sum == d)
+					ct++;
+			}
+
+			return ct;
 		}
 	}
 }
